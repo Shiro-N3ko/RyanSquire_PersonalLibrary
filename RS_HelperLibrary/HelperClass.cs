@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace RS_HelperLibrary
+﻿namespace RS_HelperLibrary
 {
     public class HelperClass
     {
@@ -175,5 +173,17 @@ namespace RS_HelperLibrary
 
             return right;
         }//end partitionInternal
+
+        public void toggleBool(ref bool aBool)
+        {
+            if (aBool)
+            {
+                aBool = false;
+            }//end if
+            else
+            {
+                aBool = true;
+            }//end else
+        }//end toggleBool
     }//end HelperClass
 }
