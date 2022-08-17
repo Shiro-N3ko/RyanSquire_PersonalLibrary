@@ -132,7 +132,7 @@ namespace RS_HelperLibrary
             }
         }//end checkEven(uint)
 
-        public void sortList<T>(ref List<T> aList, int leftIndex, int rightIndex) where T : IComparable
+        public void sortList<T>(ref List<T> aList) where T : IComparable
         {
             sortListInternal(aList, 0, aList.Count - 1);
         }//end sortList
