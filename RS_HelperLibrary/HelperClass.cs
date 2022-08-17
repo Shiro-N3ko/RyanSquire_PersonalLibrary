@@ -1,4 +1,6 @@
-﻿namespace RS_HelperLibrary
+﻿using System.Collections.Generic;
+
+namespace RS_HelperLibrary
 {
     public class HelperClass
     {
@@ -130,25 +132,48 @@
             }
         }//end checkEven(uint)
 
-        public List<T> sortList<T>(List<T> aList, int leftIndex, int rightIndex)
+        public void sortList<T>(ref List<T> aList, int leftIndex, int rightIndex) where T : IComparable
         {
+            sortListInternal(aList, 0, aList.Count - 1);
         }//end sortList
 
-        private static void sortListInternal<T>(List<T> aList, int left, int right)
+        private static void sortListInternal<T>(List<T> aList, int left, int right) where T : IComparable
         {
             if (left >= right)
             {
                 return;
             }//end if
 
-            int partition
+            int partition = partitionInternal(aList, left, right);
+
+            sortListInternal(aList, left, partition - 1);
+            sortListInternal(aList, partition + 1, right);
         }//end sortListInternal
 
-        private static void partitionInternal<T>(List<T> aList, int left, int right)
+        private static int partitionInternal<T>(List<T> aList, int left, int right) where T : IComparable
         {
             T partition = aList[right];
 
             //Stack items smaller than partition from left to right
+            int swapIndex = left;
+            for (int i = left; i < right; i++)
+            {
+                T item = aList[i];
+
+                if (item.CompareTo(partition) <= 0)
+                {
+                    aList[i] = aList[swapIndex];
+                    aList[swapIndex] = item;
+
+                    swapIndex++;
+                }//end if
+            }//end for
+
+            //put partition after all smaller items
+            aList[right] = aList[swapIndex];
+            aList[swapIndex] = partition;
+
+            return right;
         }//end partitionInternal
     }//end HelperClass
 }
